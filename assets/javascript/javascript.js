@@ -1,33 +1,20 @@
-var APIkey = "r1gNhXP5d6BYyLMWx6Z6yYMnpXMvdvF8";
-
-var topics = ["cheeses", "wines", "cars", "spongebob", "memes",];
+var topics = ["cheeses", "wines", "cars", "spongebob", "memes", ];
 
 function showTopicInfo() {
     var topic = $(this).attr("data-name");
-    var queryUrl = "https://api.giphy.com/v1/gifs/search?api_key=" + APIkey + topic + "&limit=10&offset=0&rating=G&lang=en";
-    // Creating an AJAX call for the specific movie button being clicked
+    var queryUrl = "https://api.giphy.com/v1/gifs/search?api_key=r1gNhXP5d6BYyLMWx6Z6yYMnpXMvdvF8" + topic + "&limit=10&offset=0&rating=G&lang=en";
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        // Creating a div to hold the movie
         var topicDiv = $("<div class='movie'>");
-        // Storing the rating data
         var rating = response.Rated;
-        // Creating an element to have the rating displayed
-        var firstParagraph = $("<p>").text("Rating: " + rating);
-        // Displaying the rating
-        topicDiv.append(firstParagraph);
-       
-    
-        // Retrieving the URL for the image
+        var paragraph = $("<p>").text("Rating: " + rating);
+        topicDiv.append(paragraph);
         var imgURL = response.Poster;
-        // Creating an element to hold the image
         var image = $("<img>").attr("src", imgURL);
-        // Appending the image
-        movieDiv.append(image);
-        // Putting the entire movie above the previous movies
-        $("#movies-view").prepend(movieDiv);
+        topicDiv.append(image);
+        $("#movies-view").prepend(topicDiv);
     });
 }
 
