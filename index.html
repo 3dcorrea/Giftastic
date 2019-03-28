@@ -3,14 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Giftastic!!</title>
+    <title id="title">Giftastic!!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets\css\reset.css">
     <link rel="stylesheet" type="text/css" media="screen" href="assets\css\style.css">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 <body>
-    <span>Hello World!!</span>
+    <div id="topics-view"></div>
+
+    <form id="topics-form">
+        <label for="topic-input">Add a Topic Here!</label>
+        <input type="text" id="topic-input"></input>
+
+        <!-- Button triggers new movie to be added -->
+        <input id="add-topic" type="submit" value="Add a Topic Here!">
+    </form>
 </body>
+
 <script src="assets\javascript\javascript.js"></script>
 </html>
