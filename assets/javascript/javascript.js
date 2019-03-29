@@ -1,4 +1,4 @@
-var topics = ["cheeses", "wines", "cars", "spongebob", "memes", ];
+var topics = ["cheeses", "wines", "cars", "spongebob", "memes", "Haduken", "Kamehameha" ];
 
 function showTopicInfo() {
     var topic = $(this).attr("data-name");
@@ -7,14 +7,14 @@ function showTopicInfo() {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        var topicDiv = $("<div class='movie'>");
+        var topicDiv = $("<div class='topic'>");
         var rating = response.Rated;
         var paragraph = $("<p>").text("Rating: " + rating);
         topicDiv.append(paragraph);
         var imgURL = response.Poster;
         var image = $("<img>").attr("src", imgURL);
         topicDiv.append(image);
-        $("#movies-view").prepend(topicDiv);
+        $("#topics-view").prepend(topicDiv);
     });
 }
 
@@ -26,14 +26,14 @@ function createButtonsBro() {
         a.attr("data-name", topics[i]);
         a.text(topics[i]);
 
-        $("#topic-view").append(a);
+        $("#topics-view").append(a);
     }
 }
 
-// $("#add-topic").on("click", function (event) {
-//     event.preventDefault();
-//     var topic = $("#topic-input").val().trim();
-//     topics.push(topic);
-//     createButtonsBro();
-// });
-// createButtonsBro();
+$("#add-topic").on("click", function (event) {
+    event.preventDefault();
+    var topic = $("#topic-input").val().trim();
+    topics.push(topic);
+    createButtonsBro();
+});
+createButtonsBro();
