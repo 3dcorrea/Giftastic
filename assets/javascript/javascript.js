@@ -5,24 +5,46 @@ var topics = ["Cheeses", "Wines", "Cars", "Spongebob", "Memes", "Haduken", "Kame
 function showTopicInfo() {
     var topic = $(this).attr("data-name");
 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=r1gNhXP5d6BYyLMWx6Z6yYMnpXMvdvF8&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
-
+    // var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=r1gNhXP5d6BYyLMWx6Z6yYMnpXMvdvF8&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
+    var queryURL = "https://api.giphy.com/v1/stickers/search?api_key=r1gNhXP5d6BYyLMWx6Z6yYMnpXMvdvF8&q=" + topic + "&limit=10&offset=0&rating=G&lang=en";
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
+        var results = response.data;
+        console.log(queryURL);
         console.log(response);
         var topicDiv = $("<div class='topic'>");
-        var rating = response.data.Rated;
+        var rating = results.rated;
         var paragraph = $("<p>").text("Rating: " + rating);
         topicDiv.append(paragraph);
-        var imgURL = response.data.Images;
+        var imgURL = results.Images;
         var image = $("<img>").attr("src", imgURL);
         topicDiv.append(image);
         $("#topics-view").empty();
-        $("#topics-view").append(topicDiv, rating, paragraph, imgURL, image);
+        $("#topics-view").prepend(topicDiv, rating, imgURL, );
     });
 };
+// .then(function (response) {
+//     var results = response.data;
+//     for (var i = 0; i < results.length; i++) {
+//         if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+//             var gifDiv = $("<div>");
+//             var rating = results[i].rating;
+//             var p = $("<p>").text("Rating: " + rating);
+//             var personImage = $("<img>");
+//             // Giving the image tag an src attribute of a proprty pulled off the
+//             // result item
+//             personImage.attr("src", results[i].images.fixed_height.url);
+//             // Appending the paragraph and personImage we created to the "gifDiv" div we created
+//             gifDiv.append(p);
+//             gifDiv.append(personImage);
+//             // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
+//             $("#gifs-appear-here").prepend(gifDiv);
+//         }
+//     }
+// });
+
 
 function createButtons() {
     $("#button-view").empty();
@@ -32,15 +54,16 @@ function createButtons() {
         a.attr("data-name", topics[i]);
         a.text(topics[i]);
         $("#button-view").append(a);
-    };
-};
+    }
+}
+$(document).on("click", ".topic", showTopicInfo);
 createButtons();
 
-// I keep getting an error message for line 40 but I cant figure out why
 $("#add-topic").on("click", function (event) {
     event.preventDefault();
     var topic = $("#topic-input").val().trim();
     topics.push(topic);
+    console.log(topics);
     createButtons(topic);
 });
 
